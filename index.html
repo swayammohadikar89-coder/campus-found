@@ -35,7 +35,7 @@
     ];
     function recent(days){const d=new Date();d.setDate(d.getDate()-days);return d.toISOString().slice(0,10)}
     // Optional shared mode: fill these with a Supabase project URL and public anon key.
-    const SUPABASE_URL='';const SUPABASE_ANON_KEY='';const KEY='campus-found-reports-v1';let reports;try{reports=JSON.parse(localStorage.getItem(KEY))||seed}catch{reports=seed}let filter='all';
+const SUPABASE_URL='https://tdqvijbpyrvptvsoymvw.supabase.co';const SUPABASE_ANON_KEY='sb_publishable_iuvhEQlkKWBWBmjQ1ecPGA_G7VRFQi5';const KEY='campus-found-reports-v1';let reports;try{reports=JSON.parse(localStorage.getItem(KEY))||seed}catch{reports=seed}let filter='all';
     const items=document.getElementById('items');const search=document.getElementById('search');
     function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
     function itemEmoji(name){const n=String(name||'').toLowerCase();if(/water bottle|bottle|flask/.test(n))return'🧴';if(/backpack|bag|purse/.test(n))return'🎒';if(/key/.test(n))return'🔑';if(/phone|mobile/.test(n))return'📱';if(/earbud|headphone|headset/.test(n))return'🎧';if(/notebook|diary|journal/.test(n))return'📓';if(/book/.test(n))return'📚';if(/id card|student card|identity card/.test(n))return'🪪';if(/card/.test(n))return'💳';if(/hoodie|jacket|coat|sweater/.test(n))return'🧥';if(/wallet/.test(n))return'👛';if(/watch/.test(n))return'⌚';if(/glasses|spectacles/.test(n))return'👓';if(/umbrella/.test(n))return'☂️';if(/charger|cable/.test(n))return'🔌';if(/laptop|computer/.test(n))return'💻';return'📦'}
