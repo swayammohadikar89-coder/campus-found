@@ -70,7 +70,7 @@ Approved admins can mark an item **Resolved** when it has been returned, or reop
 
 On an open **Found** report, a visitor can submit a private claim with their name, contact, and identifying details that are not visible in the public report. The claim is visible only to approved admins. An admin should contact the item reporter and verify the claimant before approving or rejecting it. This app collects evidence for a human review; it does not automatically verify identity or guarantee an item is returned.
 
-To enable claims, first run `resolved-status-setup.sql`, then run `claim-review-setup.sql` once in the Supabase **SQL Editor**. Sign in to the site with an account already approved in `public.admins`, then choose **Review claims**. For a true staff-reviewed process, add a trusted campus staff account to the existing `public.admins` allowlist.
+To enable claims, first run `resolved-status-setup.sql`, then run `claim-review-setup.sql` once in the Supabase **SQL Editor**. To enable claimant status lookup, also run `claim-status-lookup.sql` once. A claimant receives a private tracking code after submission and can use the public **Check your claim status** section to view only the item name and status. The raw code is not stored; keep it private. Claims submitted before the tracking-code update cannot be looked up this way. Sign in to the site with an account already approved in `public.admins`, then choose **Review claims**. For a true staff-reviewed process, add a trusted campus staff account to the existing `public.admins` allowlist.
 
 ## Main user flow
 
