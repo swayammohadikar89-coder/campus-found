@@ -42,7 +42,7 @@ grant select, insert on public.reports to anon;
 3. In `index.html`, set `SUPABASE_URL` and `SUPABASE_ANON_KEY` near the start of the script. Find the project's URL and public anon/publishable key in Supabase **Project Settings → API**. The public anon key is designed for browser use; never put a `service_role` or secret key in this file.
 4. Publish or push the folder to GitHub Pages. Reports will then be shared across visitors.
 
-Photos are compressed only by the browser's size limit (1.5 MB) and stored inline in the table. For a larger public deployment, use Supabase Storage and moderation/rate limiting. Contact information is visible to everyone, so reporters should use a campus email or other safe contact method.
+Large photos are compressed in the browser before upload and stored inline in the table. For a larger public deployment, use Supabase Storage and moderation/rate limiting. Contact information is visible to everyone, so reporters should use a campus email or other safe contact method.
 
 ## Admin-only report deletion
 
@@ -62,6 +62,10 @@ Visitors can still browse and post reports without signing in. To let one truste
 
 The database policy checks the authenticated email against `public.admins`, so merely creating an account does not grant delete access. Keep the admin account credentials private. Removing an email from `public.admins` revokes its delete permission.
 
+## Mark a report as resolved
+
+Approved admins can mark an item **Resolved** when it has been returned, or reopen it if needed. Reports show an Open/Resolved badge and can be filtered by status. To enable this, open Supabase **SQL Editor**, create a new query, paste the contents of `resolved-status-setup.sql`, and run it once. This is a separate update; do not rerun the original admin setup. The existing approved-admin list controls who can change status.
+
 ## Main user flow
 
 1. Browse all reports or select Lost / Found; search by item, details, or campus location.
@@ -74,6 +78,7 @@ The database policy checks the authenticated email against `public.admins`, so m
 ```json
 {
   "type": "lost",
+  "status": "open",
   "name": "Blue water bottle",
   "description": "Navy bottle with stickers",
   "location": "Library, second floor",
