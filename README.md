@@ -66,12 +66,18 @@ The database policy checks the authenticated email against `public.admins`, so m
 
 Approved admins can mark an item **Resolved** when it has been returned, or reopen it if needed. Reports show an Open/Resolved badge and can be filtered by status. To enable this, open Supabase **SQL Editor**, create a new query, paste the contents of `resolved-status-setup.sql`, and run it once. This is a separate update; do not rerun the original admin setup. The existing approved-admin list controls who can change status.
 
+## Private claim and admin review
+
+On an open **Found** report, a visitor can submit a private claim with their name, contact, and identifying details that are not visible in the public report. The claim is visible only to approved admins. An admin should contact the item reporter and verify the claimant before approving or rejecting it. This app collects evidence for a human review; it does not automatically verify identity or guarantee an item is returned.
+
+To enable claims, first run `resolved-status-setup.sql`, then run `claim-review-setup.sql` once in the Supabase **SQL Editor**. Sign in to the site with an account already approved in `public.admins`, then choose **Review claims**. For a true staff-reviewed process, add a trusted campus staff account to the existing `public.admins` allowlist.
+
 ## Main user flow
 
 1. Browse all reports or select Lost / Found; search by item, details, or campus location.
 2. Click an item card to open its full description, location, date, photo, and contact details.
 3. Choose **Post a report**, select lost or found, and enter the item, description, location, date, and contact. A photo is optional.
-4. Publish. The card appears in the list, with a contact link for anyone who can help.
+4. Publish. The card appears in the list, with a contact link for anyone who can help. A visitor may privately claim an open Found item for admin review.
 
 ## Report data
 
