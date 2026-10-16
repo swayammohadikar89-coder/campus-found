@@ -44,11 +44,30 @@ grant select, insert on public.reports to anon;
 
 Photos are compressed only by the browser's size limit (1.5 MB) and stored inline in the table. For a larger public deployment, use Supabase Storage and moderation/rate limiting. Contact information is visible to everyone, so reporters should use a campus email or other safe contact method.
 
+## Admin-only report deletion
+
+Visitors can still browse and post reports without signing in. To let one trusted admin remove spam or outdated reports:
+
+1. In Supabase, open **SQL Editor**, create a new query, paste the contents of `admin-setup.sql`, and run it.
+2. In **Authentication → Users**, add one admin user with the admin's email and a strong password. Do not publish or share that password.
+3. In SQL Editor, approve that exact email (replace the example email, then run):
+
+   ```sql
+   insert into public.admins (email)
+   values ('admin@your-college.edu')
+   on conflict (email) do nothing;
+   ```
+
+4. The admin opens the site, selects **Admin login**, and signs in. A **Delete report** button then appears on report cards. Each deletion asks for confirmation.
+
+The database policy checks the authenticated email against `public.admins`, so merely creating an account does not grant delete access. Keep the admin account credentials private. Removing an email from `public.admins` revokes its delete permission.
+
 ## Main user flow
 
 1. Browse all reports or select Lost / Found; search by item, details, or campus location.
-2. Choose **Post a report**, select lost or found, and enter the item, description, location, date, and contact. A photo is optional.
-3. Publish. The card appears in the list, with a contact link for anyone who can help.
+2. Click an item card to open its full description, location, date, photo, and contact details.
+3. Choose **Post a report**, select lost or found, and enter the item, description, location, date, and contact. A photo is optional.
+4. Publish. The card appears in the list, with a contact link for anyone who can help.
 
 ## Report data
 
